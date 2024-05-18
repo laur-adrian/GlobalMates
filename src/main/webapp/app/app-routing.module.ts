@@ -32,6 +32,10 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
           path: '',
           loadChildren: () => import(`./entities/entity-routing.module`).then(m => m.EntityRoutingModule),
         },
+        {
+          path: 'create-event',
+          loadChildren: () => import(`./create-event/create-event.module`).then(m => m.CreateEventModule),
+        },
         navbarRoute,
         ...errorRoute,
       ],
