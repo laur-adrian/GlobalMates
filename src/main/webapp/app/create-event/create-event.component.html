@@ -1,7 +1,8 @@
+<h2>Create an Event</h2>
 <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
   <div>
     <label for="name">Name:</label>
-    <input type="text" formControlName="name">
+    <input type="text" formControlName="name" />
     <div *ngIf="eventForm.get('name')!.invalid && (eventForm.get('name')!.dirty || eventForm.get('name')!.touched)">
       <div *ngIf="eventForm.get('name')?.errors?.required">Name is required.</div>
     </div>
@@ -15,14 +16,14 @@
   </div>
   <div>
     <label for="date">Date:</label>
-    <input type="datetime-local" formControlName="date">
+    <input type="datetime-local" formControlName="date" />
     <div *ngIf="eventForm.get('date')!.invalid && (eventForm.get('date')!.dirty || eventForm.get('date')!.touched)">
       <div *ngIf="eventForm.get('date')?.errors?.required">Date is required.</div>
     </div>
   </div>
   <div>
     <label for="city">City:</label>
-    <input type="text" formControlName="city">
+    <input type="text" formControlName="city" />
     <div *ngIf="eventForm.get('city')!.invalid && (eventForm.get('city')!.dirty || eventForm.get('city')!.touched)">
       <div *ngIf="eventForm.get('city')?.errors?.required">City is required.</div>
     </div>
