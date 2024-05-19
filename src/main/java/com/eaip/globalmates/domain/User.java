@@ -88,6 +88,62 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    @Column(name = "city")
+    private String city;
+
+    @Column(name = "personality_traits", columnDefinition = "TEXT")
+    private String personalityTraits;
+
+    @Column(name = "budget", precision = 10, scale = 2)
+    private Double budget;
+
+    @Column(name = "roommates_preferences", columnDefinition = "TEXT")
+    private String roommatesPreferences;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role = Role.STUDENT; // Default role is 'student'
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPersonalityTraits() {
+        return personalityTraits;
+    }
+
+    public void setPersonalityTraits(String personalityTraits) {
+        this.personalityTraits = personalityTraits;
+    }
+
+    public Double getBudget() {
+        return budget;
+    }
+
+    public void setBudget(Double budget) {
+        this.budget = budget;
+    }
+
+    public String getRoommatesPreferences() {
+        return roommatesPreferences;
+    }
+
+    public void setRoommatesPreferences(String roommatesPreferences) {
+        this.roommatesPreferences = roommatesPreferences;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     public Long getId() {
         return id;
     }
