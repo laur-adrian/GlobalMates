@@ -25,6 +25,9 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { ProfileComponent } from './profile/profile.component';
+import { EventComponent } from './event/event.component';
+import { MatchesComponent } from './matches/matches.component';
 
 @NgModule({
   imports: [
@@ -45,7 +48,17 @@ import { ErrorComponent } from './layouts/error/error.component';
     { provide: NgbDateAdapter, useClass: NgbDateDayjsAdapter },
     httpInterceptorProviders,
   ],
-  declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
+  declarations: [
+    MainComponent,
+    NavbarComponent,
+    ErrorComponent,
+    PageRibbonComponent,
+    ActiveMenuDirective,
+    FooterComponent,
+    ProfileComponent,
+    EventComponent,
+    MatchesComponent,
+  ],
   bootstrap: [MainComponent],
 })
 export class AppModule {

@@ -7,6 +7,9 @@ import { DEBUG_INFO_ENABLED } from 'app/app.constants';
 import { Authority } from 'app/config/authority.constants';
 
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
+import { ProfileComponent } from './profile/profile.component';
+import { EventComponent } from './event/event.component';
+import { MatchesComponent } from './matches/matches.component';
 
 @NgModule({
   imports: [
@@ -35,6 +38,18 @@ import { UserRouteAccessService } from 'app/core/auth/user-route-access.service'
         {
           path: 'create-event',
           loadChildren: () => import(`./create-event/create-event.module`).then(m => m.CreateEventModule),
+        },
+        {
+          path: 'profile',
+          component: ProfileComponent,
+        },
+        {
+          path: 'matches',
+          component: MatchesComponent,
+        },
+        {
+          path: 'events',
+          component: EventComponent,
         },
         navbarRoute,
         ...errorRoute,

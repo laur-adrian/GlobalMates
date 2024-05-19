@@ -33,6 +33,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.router.navigate(['/create-event']);
   }
 
+  createProfile(): void {
+    this.router.navigate(['/profile']);
+  }
+
+  seeMatch(): void {
+    this.router.navigate(['/matches']);
+  }
+
+  seeEvents(): void {
+    this.router.navigate(['/events']);
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
