@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <changeSet id="3-create-match-table" author="yourname">
+        <createTable tableName="Matches">
+            <column name="match_id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="user_id1" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id2" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="compatibility_score" type="double"/>
+        </createTable>
+
+        <addForeignKeyConstraint baseTableName="Matches"
+                                 baseColumnNames="user_id1"
+                                 referencedTableName="jhi_user"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_match_user1"/>
+
+        <addForeignKeyConstraint baseTableName="Matches"
+                                 baseColumnNames="user_id2"
+                                 referencedTableName="jhi_user"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_match_user2"/>
+    </changeSet>
+
+</databaseChangeLog>
