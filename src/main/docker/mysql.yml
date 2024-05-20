@@ -2,9 +2,8 @@
 version: '3.8'
 services:
   globalmates-mysql:
-    image: mysql:8.0.28
-    # volumes:
-    #   - ~/volumes/jhipster/GlobalMates/mysql/:/var/lib/mysql/
+    image: mysql:8.4
+
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=globalmates
@@ -12,4 +11,4 @@ services:
     # remove the "127.0.0.1:" prefix
     ports:
       - 3306:3306
-    command: mysqld --lower_case_table_names=1 --skip-ssl --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
+    command: mysqld --lower_case_table_names=1 --character_set_server=utf8mb4 --explicit_defaults_for_timestamp
