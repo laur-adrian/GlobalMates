@@ -1,1 +1,7 @@
-<p>matches works!</p>
+<div class="matches-container">
+  <h1 style="margin-right: 20px">Matches</h1>
+  <div class="match-card" *ngFor="let match of matches">
+    <h2>{{ match.firstName }} {{ match.lastName }}</h2>
+    <p><strong>Email:</strong> {{ match.email }}</p>
+  </div>
+</div>

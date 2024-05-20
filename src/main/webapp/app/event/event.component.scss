@@ -1,0 +1,21 @@
+.events-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.event-card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  width: 200px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.event-card h2 {
+  margin-top: 0;
+}
+
+.event-card p {
+  margin: 4px 0;
+}
