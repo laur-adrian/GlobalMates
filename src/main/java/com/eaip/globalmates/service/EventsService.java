@@ -8,7 +8,6 @@ import com.eaip.globalmates.repository.EventRepository;
 import com.eaip.globalmates.repository.UserRepository;
 import com.eaip.globalmates.security.SecurityUtils;
 import com.eaip.globalmates.service.dto.CreateEventDto;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,7 +39,7 @@ public class EventsService {
         return saved;
     }
 
-    private @NotNull User getUser() {
+    private User getUser() {
         return SecurityUtils.getCurrentUserLogin()
             .flatMap(userRepository::findOneByLogin)
             .orElseThrow(); //TODO change behaviour
