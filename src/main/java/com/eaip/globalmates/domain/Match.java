@@ -12,11 +12,11 @@ public class Match {
     private Long matchId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id1", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id1", referencedColumnName = "id")
     private User user1;
 
     @ManyToOne
-    @JoinColumn(name = "user_id2", referencedColumnName = "user_id")
+    @JoinColumn(name = "user_id2", referencedColumnName = "id")
     private User user2;
 
     @Column(name = "compatibility_score", precision = 5, scale = 2)
