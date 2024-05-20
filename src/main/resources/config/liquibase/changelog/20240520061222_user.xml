@@ -13,6 +13,9 @@
             <column name="role" type="varchar(255)" defaultValue="STUDENT">
                 <constraints nullable="false"/>
             </column>
+            <column name="city_id" type="bigint">
+                <constraints nullable="true" />
+            </column>
         </addColumn>
     </changeSet>
 
