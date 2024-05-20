@@ -1,0 +1,42 @@
+.profile {
+  max-width: 400px;
+  margin: auto;
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.profile h1 {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.profile form div {
+  margin-bottom: 1em;
+}
+
+.profile label {
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+.profile input {
+  width: 100%;
+  padding: 0.5em;
+  box-sizing: border-box;
+}
+
+.profile button {
+  display: block;
+  width: 100%;
+  padding: 0.5em;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile button:hover {
+  background-color: #0056b3;
+}

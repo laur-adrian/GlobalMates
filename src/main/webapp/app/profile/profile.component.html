@@ -1,1 +1,30 @@
-<p>profile works!</p>
+<div class="profile">
+  <h1>Hello, {{ profileData.firstName }} {{ profileData.userName }}</h1>
+  <form [formGroup]="profileForm">
+    <div>
+      <label for="firstName">First Name:</label>
+      <input id="firstName" formControlName="firstName" type="text" />
+    </div>
+    <div>
+      <label for="userName">User Name:</label>
+      <input id="userName" formControlName="userName" type="text" />
+    </div>
+    <div>
+      <label for="city">City:</label>
+      <input id="city" formControlName="city" type="text" />
+    </div>
+    <div>
+      <label for="personalityTraits">Personality Traits:</label>
+      <input id="personalityTraits" formControlName="personalityTraits" type="text" />
+    </div>
+    <div>
+      <label for="budget">Budget:</label>
+      <input id="budget" formControlName="budget" type="number" />
+    </div>
+    <div>
+      <label for="roommatesPreferences">Roommates Preferences:</label>
+      <input id="roommatesPreferences" formControlName="roommatesPreferences" type="text" />
+    </div>
+  </form>
+  <button (click)="toggleEdit()">{{ isEditing ? 'Save' : 'Edit' }}</button>
+</div>
