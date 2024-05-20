@@ -7,9 +7,9 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <changeSet id="1-add-columns-to-user" author="yourname">
         <addColumn tableName="jhi_user">
-            <column name="personality_traits" type="VARCHAR"/>
+            <column name="personality_traits" type="VARCHAR(256)"/>
             <column name="budget" type="DOUBLE"/>
-            <column name="roommates_preferences" type="VARCHAR"/>
+            <column name="roommates_preferences" type="VARCHAR(256)"/>
             <column name="role" type="varchar(255)" defaultValue="STUDENT">
                 <constraints nullable="false"/>
             </column>
