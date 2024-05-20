@@ -13,11 +13,11 @@ public class Messages {
     private Long messageId;
 
     @ManyToOne
-    @JoinColumn(name = "sender_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "sender_id", referencedColumnName = "id")
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "receiver_id", referencedColumnName = "user_id")
+    @JoinColumn(name = "receiver_id", referencedColumnName = "id")
     private User receiver;
 
     @Column(name = "message_content", columnDefinition = "TEXT")
