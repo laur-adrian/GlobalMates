@@ -7,7 +7,6 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     <changeSet id="1-add-columns-to-user" author="yourname">
         <addColumn tableName="jhi_user">
-            <column name="city" type="varchar(255)"/>
             <column name="personality_traits" type="VARCHAR"/>
             <column name="budget" type="DOUBLE"/>
             <column name="roommates_preferences" type="VARCHAR"/>
@@ -15,5 +14,14 @@
                 <constraints nullable="false"/>
             </column>
         </addColumn>
+    </changeSet>
+
+    <changeSet id="2-add-city-to-user" author="alexg">
+        <addForeignKeyConstraint baseTableName="jhi_user"
+                                 baseColumnNames="city_id"
+                                 referencedTableName="city"
+                                 referencedColumnNames="id"
+                                 constraintName="fk_user_city_id"
+                                 onDelete="CASCADE"/>
     </changeSet>
 </databaseChangeLog>

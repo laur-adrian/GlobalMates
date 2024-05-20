@@ -8,7 +8,10 @@ import com.eaip.globalmates.repository.EventRepository;
 import com.eaip.globalmates.repository.UserRepository;
 import com.eaip.globalmates.security.SecurityUtils;
 import com.eaip.globalmates.service.dto.CreateEventDto;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class EventsService {
@@ -31,11 +34,24 @@ public class EventsService {
             .orElseThrow(); //TODO change behaviour
         event.setCity(city);
         System.out.println(SecurityUtils.getCurrentUserLogin());
-        User user = SecurityUtils.getCurrentUserLogin()
-            .flatMap(userRepository::findOneByLogin)
-            .orElseThrow(); //TODO change behaviour
+        User user = getUser();
         event.setOrganizer(user);
         Event saved = eventRepository.save(event);
         return saved;
+    }
+
+    private @NotNull User getUser() {
+        return SecurityUtils.getCurrentUserLogin()
+            .flatMap(userRepository::findOneByLogin)
+            .orElseThrow(); //TODO change behaviour
+    }
+
+    public List<Event> getEventsForCurrentUser() {
+        User user = getUser();
+        return eventRepository.findAllByCity(user.getCity());
+    }
+
+    public List<Event> getAllEvents() {
+        return eventRepository.findAll();
     }
 }

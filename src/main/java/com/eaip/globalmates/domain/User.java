@@ -88,8 +88,9 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
-    @Column(name = "city")
-    private String city;
+    @ManyToOne
+    @JoinColumn(name="city_id", nullable=true)
+    private City city;
 
     @Column(name = "personality_traits", columnDefinition = "TEXT")
     private String personalityTraits;
@@ -104,11 +105,11 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @Column(name = "role", nullable = false)
     private Role role = Role.STUDENT; // Default role is 'student'
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
     }
 
