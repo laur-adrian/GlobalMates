@@ -1,35 +1,30 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { ApplicationConfigService } from '../core/config/application-config.service';
 
 @Component({
-  selector: 'jhi-event',
-  templateUrl: './event.component.html',
-  styleUrls: ['./event.component.scss'],
+selector: 'jhi-event',
+templateUrl: './event.component.html',
+styleUrls: ['./event.component.scss'],
 })
-export class EventComponent {
-  events = [
-    {
-      name: 'Music Concert',
-      description: 'A live music concert featuring popular bands.',
-      city: 'Los Angeles',
-      date: '2024-06-15',
-    },
-    {
-      name: 'Art Exhibition',
-      description: 'An exhibition showcasing modern art from local artists.',
-      city: 'New York',
-      date: '2024-07-01',
-    },
-    {
-      name: 'Tech Conference',
-      description: 'A conference for technology enthusiasts and professionals.',
-      city: 'San Francisco',
-      date: '2024-08-20',
-    },
-    {
-      name: 'Food Festival',
-      description: 'A festival celebrating culinary delights from around the world.',
-      city: 'Chicago',
-      date: '2024-09-10',
-    },
-  ];
+export class EventComponent implements OnInit {
+events: any[] = [];
+
+constructor(private http: HttpClient, private applicationConfigService: ApplicationConfigService) {}
+
+ngOnInit(): void {
+this.fetchEventsForCurrentUser();
+}
+
+fetchEventsForCurrentUser(): void {
+const url = this.applicationConfigService.getEndpointFor('events');
+this.http.get<any[]>(`${url}?forCurrentUser=true`).subscribe(
+(events) => {
+this.events = events;
+},
+(error) => {
+console.error('Error fetching events:', error);
+}
+);
+}
 }
