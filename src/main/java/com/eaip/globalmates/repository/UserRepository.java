@@ -1,5 +1,6 @@
 package com.eaip.globalmates.repository;
 
+import com.eaip.globalmates.domain.City;
 import com.eaip.globalmates.domain.User;
 import java.time.Instant;
 import java.util.List;
@@ -27,4 +28,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneWithAuthoritiesByEmailIgnoreCase(String email);
 
     Page<User> findAllByIdNotNullAndActivatedIsTrue(Pageable pageable);
+
+    List<User> findAllByCityAndBudgetAndPersonalityTraits(City city, Double budget, String personalityTraits);
 }

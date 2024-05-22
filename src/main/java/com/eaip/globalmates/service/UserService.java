@@ -4,11 +4,13 @@ import com.eaip.globalmates.config.Constants;
 import com.eaip.globalmates.domain.Authority;
 import com.eaip.globalmates.domain.User;
 import com.eaip.globalmates.repository.AuthorityRepository;
+import com.eaip.globalmates.repository.CityRepository;
 import com.eaip.globalmates.repository.UserRepository;
 import com.eaip.globalmates.security.AuthoritiesConstants;
 import com.eaip.globalmates.security.SecurityUtils;
 import com.eaip.globalmates.service.dto.AdminUserDTO;
 import com.eaip.globalmates.service.dto.UserDTO;
+import com.eaip.globalmates.service.dto.UserProfileDetailsDTO;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
@@ -34,12 +36,20 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    private final CityRepository cityRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     private final AuthorityRepository authorityRepository;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository) {
+    public UserService(
+        UserRepository userRepository,
+        CityRepository cityRepository,
+        PasswordEncoder passwordEncoder,
+        AuthorityRepository authorityRepository
+    ) {
         this.userRepository = userRepository;
+        this.cityRepository = cityRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
     }
@@ -111,9 +121,9 @@ public class UserService {
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
-        newUser.setActivated(false);
+        newUser.setActivated(true);
         // new user gets registration key
-        newUser.setActivationKey(RandomUtil.generateActivationKey());
+        newUser.setActivationKey(null);
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
@@ -199,6 +209,21 @@ public class UserService {
                 return user;
             })
             .map(AdminUserDTO::new);
+    }
+
+    public User updateUserDetails(UserProfileDetailsDTO userProfileDetailsDTO) {
+        User currUser = getCurrUser();
+        currUser.setFirstName(userProfileDetailsDTO.getFirstName());
+        currUser.setCity(cityRepository.findByName(userProfileDetailsDTO.getCity()).get());
+        currUser.setPersonalityTraits(userProfileDetailsDTO.getPersonalityTraits());
+        currUser.setBudget(userProfileDetailsDTO.getBudget());
+        currUser.setRoommatesPreferences(userProfileDetailsDTO.getRoommatesPreferences());
+        User savedDetails = userRepository.save(currUser);
+        return savedDetails;
+    }
+
+    public User getCurrUser() {
+        return SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneByLogin).orElseThrow(); //TODO change behaviour
     }
 
     public void deleteUser(String login) {

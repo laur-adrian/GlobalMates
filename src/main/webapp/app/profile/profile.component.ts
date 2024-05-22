@@ -1,31 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { ApplicationConfigService } from '../core/config/application-config.service';
+import { UserProfileDetailsDTO } from '../models/user-profile-details-dto.model';
 
 @Component({
   selector: 'jhi-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
+  userDetails: UserProfileDetailsDTO = new UserProfileDetailsDTO();
   profileForm: FormGroup;
-  profileData = {
-    firstName: 'John',
-    userName: 'john_doe',
-    city: 'New York',
-    personalityTraits: ['friendly', 'organized', 'creative'],
-    budget: 1200,
-    roommatesPreferences: 'Non-smoker, clean, quiet',
-  };
+  // profileData = {
+  //   firstName: 'John',
+  //   userName: 'john_doe',
+  //   city: 'New York',
+  //   personalityTraits: ['friendly', 'organized', 'creative'],
+  //   budget: 1200,
+  //   roommatesPreferences: 'Non-smoker, clean, quiet',
+  // };
   isEditing = false;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private applicationConfigService: ApplicationConfigService) {
     this.profileForm = this.fb.group({
-      firstName: [{ value: this.profileData.firstName, disabled: true }],
-      userName: [{ value: this.profileData.userName, disabled: true }],
-      city: [{ value: this.profileData.city, disabled: true }],
-      personalityTraits: [{ value: this.profileData.personalityTraits.join(', '), disabled: true }],
-      budget: [{ value: this.profileData.budget, disabled: true }],
-      roommatesPreferences: [{ value: this.profileData.roommatesPreferences, disabled: true }],
+      firstName: [{ value: this.userDetails.firstName, disabled: true }],
+      userName: [{ value: this.userDetails.username, disabled: true }],
+      city: [{ value: this.userDetails.city, disabled: true }],
+      personalityTraits: [{ value: this.userDetails.personalityTraits, disabled: true }],
+      budget: [{ value: this.userDetails.budget, disabled: true }],
+      roommatesPreferences: [{ value: this.userDetails.roommatesPreferences, disabled: true }],
+    });
+  }
+
+  ngOnInit(): void {
+    this.http.get<UserProfileDetailsDTO>(this.applicationConfigService.getEndpointFor('user/currUserDetails')).subscribe((u: any) => {
+      console.log(u);
+      this.profileForm.patchValue({
+        firstName: u.firstName,
+        userName: u.username,
+        city: u.city,
+        personalityTraits: u.personalityTraits,
+        budget: u.budget,
+        roommatesPreferences: u.roommatesPreferences,
+      });
+      this.userDetails = u;
     });
   }
 
@@ -40,14 +59,13 @@ export class ProfileComponent {
   }
 
   saveChanges(): void {
-    this.profileData.firstName = this.profileForm.get('firstName')?.value;
-    this.profileData.userName = this.profileForm.get('userName')?.value;
-    this.profileData.city = this.profileForm.get('city')?.value;
-    this.profileData.personalityTraits = this.profileForm
-      .get('personalityTraits')
-      ?.value.split(',')
-      .map((trait: string) => trait.trim());
-    this.profileData.budget = this.profileForm.get('budget')?.value;
-    this.profileData.roommatesPreferences = this.profileForm.get('roommatesPreferences')?.value;
+    this.userDetails.firstName = this.profileForm.get('firstName')?.value;
+    this.userDetails.username = this.profileForm.get('userName')?.value;
+    this.userDetails.city = this.profileForm.get('city')?.value;
+    console.log(this.profileForm.get('city')?.value);
+    this.userDetails.personalityTraits = this.profileForm.get('personalityTraits')?.value;
+    this.userDetails.budget = this.profileForm.get('budget')?.value;
+    this.userDetails.roommatesPreferences = this.profileForm.get('roommatesPreferences')?.value;
+    this.http.post<any>(this.applicationConfigService.getEndpointFor('user/details'), this.userDetails).subscribe();
   }
 }
