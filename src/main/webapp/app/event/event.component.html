@@ -3,7 +3,7 @@
   <div class="event-card" *ngFor="let event of events">
     <h2>{{ event.name }}</h2>
     <p>{{ event.description }}</p>
-    <p><strong>City:</strong> {{ event.city }}</p>
+    <p><strong>City:</strong> {{ event.city.name }}</p>
     <p><strong>Date:</strong> {{ event.date | date: 'longDate' }}</p>
   </div>
 </div>
